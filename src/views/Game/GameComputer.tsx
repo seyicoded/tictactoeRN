@@ -107,9 +107,11 @@ React.useEffect(()=>{
     if(playerType === 'O'){
         // check if game is active
         if(!gameResult.isFinished){
-            const index = (computerAutoPlay(gameState));
-            // @ts-ignore
-            handlePressItem(index);
+            setTimeout(()=>{
+              const index = (computerAutoPlay(gameState));
+              // @ts-ignore
+              handlePressItem(index);
+            }, 700)
         }
     }
 }, [

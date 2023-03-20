@@ -53,7 +53,60 @@ export const computerAutoPlay = (gameState: GameStateType[]) => {
     }
   });
 
-  // @TODO: check if player is about to win then blocks him
+  // @TODO: check if player/enemy is about to win then blocks him
+  // @DOING
+  const enemyAll: any[] = [];
+
+  gameState.map((_val, position) => {
+    if (_val === 'X') {
+      enemyAll.push(position);
+    }
+  });
+
+  for (let i = 0; i < winnerResults.length; i++) {
+    const _group = winnerResults[i];
+
+    const found = _group.some((r) => enemyAll.includes(r));
+
+    if (found) {
+      // okay a reasonable move is found, so let's check to see if all isn't played
+      const [move1, move2, move3] = _group;
+
+      if (enemyAll.includes(move1) && enemyAll.includes(move2)) {
+        let move = move3;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      } else if (enemyAll.includes(move1) && enemyAll.includes(move3)) {
+        let move = move2;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      } else if (enemyAll.includes(move2) && enemyAll.includes(move3)) {
+        let move = move1;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      }
+    }
+  }
+
+  // end checker for if bot is about to lose
 
   for (let i = 0; i < winnerResults.length; i++) {
     const _group = winnerResults[i];
