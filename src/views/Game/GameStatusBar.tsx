@@ -8,6 +8,7 @@ import { GameStatusBarProps } from './Game.types';
 
 const GameStatusBar: React.FC<GameStatusBarProps> = ({
   status,
+  hasComputer = false,
   currentPlayer,
   ...props
 }) => {
@@ -16,7 +17,7 @@ const GameStatusBar: React.FC<GameStatusBarProps> = ({
   return (
     <StyledGameStatusBarContainer {...props}>
       <StatusText
-        title="PLAYER X"
+        title={hasComputer ? 'YOU' : 'PLAYER X'}
         value={status.playerX}
         color={colors.primary}
         isCurrentPlayer={currentPlayer === 'X'}
@@ -24,7 +25,7 @@ const GameStatusBar: React.FC<GameStatusBarProps> = ({
       />
       <StatusText title="ROUND" value={status.round} color={colors.subtitle} />
       <StatusText
-        title="PLAYER O"
+        title={hasComputer ? 'COMPUTER' : 'PLAYER O'}
         value={status.playerO}
         color={colors.secondary}
         isCurrentPlayer={currentPlayer === 'O'}

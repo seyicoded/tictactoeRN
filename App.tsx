@@ -27,3 +27,5 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+// https://github.com/nrzky/tic-tac-toe?ref=reactnativeexample.com

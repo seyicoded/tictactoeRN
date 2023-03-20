@@ -1,9 +1,11 @@
+// @ts-nocheck
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Welcome, Game } from '@app/views';
+import GameComputer from '../views/Game/GameComputer';
 
 import { AppStackParamList } from './Routes.types';
 
@@ -16,6 +18,7 @@ const AppStack: React.FC = () => {
     >
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Game" component={Game} />
+      <Stack.Screen name="GameComputer" component={GameComputer} />
     </Stack.Navigator>
   );
 };

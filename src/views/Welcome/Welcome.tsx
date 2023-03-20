@@ -1,5 +1,6 @@
+// @ts-nocheck
 import * as React from 'react';
-import { Linking } from 'react-native';
+import { Linking, Text } from 'react-native';
 
 import { Button, Container } from '@app/components';
 import { useChangeTheme } from '@app/context';
@@ -20,6 +21,10 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
     Linking.openURL('https://www.github.com/nrzky');
   }, []);
 
+  const fontSize: any = {
+    fontSize: 13,
+  };
+
   return (
     <Container style={styles.container}>
       <StyledThemeSwitch
@@ -37,8 +42,31 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           type="primary"
           onPress={() => navigation.replace('Game')}
         >
-          Play Game
+          <Text>
+            Play Game <Text style={fontSize}>1 vs 1</Text>
+          </Text>
         </Button>
+
+        <Button
+          style={styles.button}
+          type="primary"
+          onPress={() => navigation.replace('GameComputer')}
+        >
+          <Text>
+            Play Game <Text style={fontSize}>1 vs computer</Text>
+          </Text>
+        </Button>
+
+        <Button
+          style={styles.button}
+          type="primary"
+          onPress={() => navigation.replace('Game')}
+        >
+          <Text>
+            Play Game <Text style={fontSize}>1 vs friend (OTA)</Text>
+          </Text>
+        </Button>
+
         <Button
           style={styles.button}
           type="secondary"

@@ -40,6 +40,102 @@ export const checkLastRound = (gameState: GameStateType[]) => {
   return !gameState.some((state) => state === undefined);
 };
 
+export const computerAutoPlay = (gameState: GameStateType[]) => {
+  //
+  let bestPlaceToWin = null;
+
+  // all O places
+  const allO: any[] = [];
+
+  gameState.map((_val, position) => {
+    if (_val === 'O') {
+      allO.push(position);
+    }
+  });
+
+  // @TODO: check if player is about to win then blocks him
+
+  for (let i = 0; i < winnerResults.length; i++) {
+    const _group = winnerResults[i];
+
+    const found = _group.some((r) => allO.includes(r));
+
+    if (found) {
+      // okay a reasonable move is found, so let's check to see if all isn't played
+      const [move1, move2, move3] = _group;
+
+      if (
+        !allO.includes(move1) ||
+        !allO.includes(move2) ||
+        !allO.includes(move3)
+      ) {
+        // meaning atleast one of 3 moves hasn't been played yet
+
+        // check if it's the first
+        let move = null;
+
+        move = !allO.includes(move1)
+          ? move1
+          : !allO.includes(move2)
+          ? move2
+          : move3;
+
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        } else {
+          move = !allO.includes(move2) ? move2 : move3;
+
+          // check if opponent has played that move
+          if (gameState[move] === undefined) {
+            bestPlaceToWin = move;
+
+            console.log('reached2', move);
+
+            return move;
+          } else {
+            move = move3;
+
+            if (gameState[move] === undefined) {
+              bestPlaceToWin = move;
+
+              console.log('reached3', move);
+              return move;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // winnerResults.forEach((_group) => {
+
+  // });
+
+  if (bestPlaceToWin === null) {
+    // just check for free position and play there since no logical option to win
+    for (let position = 0; position < gameState.length; position++) {
+      const _val = gameState[position];
+
+      if (_val === undefined) {
+        return position;
+      }
+    }
+
+    // gameState.map((_val, position) => {
+    //   if (_val === undefined) {
+    //     return position;
+    //   }
+    // });
+  }
+
+  return bestPlaceToWin;
+};
+
 export const checkGameResult = (gameState: GameStateType[]) => {
   const gameResult: {
     isFinished: boolean;
