@@ -1,6 +1,6 @@
 // @ts-nocheck
 import * as React from 'react';
-import { Linking, Text } from 'react-native';
+import { Alert, Linking, Text } from 'react-native';
 
 import { Button, Container } from '@app/components';
 import { useChangeTheme } from '@app/context';
@@ -18,7 +18,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
   const { isDarkTheme, setDarkTheme } = useChangeTheme();
 
   const handleLinkAbout = React.useCallback(() => {
-    Linking.openURL('https://www.github.com/nrzky');
+    Linking.openURL('https://www.github.com/seyicoded');
   }, []);
 
   const fontSize: any = {
@@ -60,7 +60,18 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
         <Button
           style={styles.button}
           type="primary"
-          onPress={() => navigation.replace('Game')}
+          onPress={() => {
+            Alert.alert('Select Game Mode', '', [
+              {
+                text: 'Create a Game',
+                style: 'default',
+              },
+              {
+                text: 'Join a Game',
+                style: 'default',
+              },
+            ]);
+          }}
         >
           <Text>
             Play Game <Text style={fontSize}>1 vs friend (OTA)</Text>
