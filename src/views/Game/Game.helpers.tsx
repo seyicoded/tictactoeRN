@@ -53,6 +53,54 @@ export const computerAutoPlay = (gameState: GameStateType[]) => {
     }
   });
 
+  // @TODO: check if computer is about to win then win
+  // @DOING
+
+  for (let i = 0; i < winnerResults.length; i++) {
+    const _group = winnerResults[i];
+
+    const found = _group.some((r) => allO.includes(r));
+
+    if (found) {
+      // okay a reasonable move is found, so let's check to see if all isn't played
+      const [move1, move2, move3] = _group;
+
+      if (allO.includes(move1) && allO.includes(move2)) {
+        let move = move3;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      } else if (allO.includes(move1) && allO.includes(move3)) {
+        let move = move2;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      } else if (allO.includes(move2) && allO.includes(move3)) {
+        let move = move1;
+        // check if opponent has played that move
+        if (gameState[move] === undefined) {
+          bestPlaceToWin = move;
+
+          console.log('reached1', move);
+
+          return move;
+        }
+      }
+    }
+  }
+
+  // end checker for if computer is about to win
+
   // @TODO: check if player/enemy is about to win then blocks him
   // @DOING
   const enemyAll: any[] = [];
